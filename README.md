@@ -27,3 +27,19 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### vue-cli instalasi
+```
+npm install -g @vue/cli
+```
+
+### vue-create
+```
+vue create vuetify-tutorial
+```
+
+### add-vuetify
+```
+vue add vuetify
+```
+
