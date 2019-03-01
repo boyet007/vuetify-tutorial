@@ -12,8 +12,8 @@
                 <v-icon right>exit_to_app</v-icon>
             </v-btn>   
 
-            <v-navigation-drawer app v-model="drawer"  class="indigo" >
-                <p>test</p>
+            <v-navigation-drawer app v-model="drawer"  class="warning" >
+                <p class="success">test</p>
             </v-navigation-drawer>
         </v-toolbar>
     </nav>
