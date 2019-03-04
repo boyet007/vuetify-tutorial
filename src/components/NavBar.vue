@@ -35,7 +35,6 @@
                     </v-list-tile>
                 </v-list>
             </v-navigation-drawer>
-       
     </nav>
 </template>
 
