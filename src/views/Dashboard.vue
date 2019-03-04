@@ -2,6 +2,17 @@
   <div class="dasboard">
     <h1 class="subheading grey--text">Dashboardd</h1>
     <v-container class="my-5">
+      <v-layout row class="mb-3">
+      <v-btn small flat color="grey" @click="sortBy('title')">
+        <v-icon left small>folder</v-icon>
+        <div class="span caption text-lowercase">by project name</div>
+        </v-btn>  
+        <v-btn small flat color="grey" @click="sortBy('person')">
+        <v-icon left small>person</v-icon>
+        <div class="span caption text-lowercase">by person</div>
+        </v-btn>  
+      </v-layout> 
+
       <v-card flat v-for="project in projects" :key="project.title">
         <v-layout row wrap :class="`pa-3 project ${project.status}`">
           <v-flex xs12 md6>
@@ -35,9 +46,14 @@ export default {
       projects: [
         { title: 'Design a new website', person: 'The net ninja', due: '1st Jan 2019', status: 'ongoing' },
         { title: 'Programming vue', person: 'Philip', due: '1st March 2019', status: 'overdue' },
-        { title: 'Programming mysql', person: 'Philip', due: '1st April 2019', status: 'complete' },
+        { title: 'Programming mysql', person: 'Martin', due: '1st April 2019', status: 'complete' },
         { title: 'Nuxt Tutorial', person: 'AcademyId', due: '1st May 2019', status: 'ongoing' },
       ]
+    }
+  },
+  methods: {
+    sortBy(prop) {
+      this.projects.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
   }
 }
