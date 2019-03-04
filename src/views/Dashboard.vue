@@ -2,29 +2,54 @@
   <div class="dasboard">
     <h1 class="subheading grey--text">Dashboardd</h1>
     <v-container class="my-5">
-      <v-layout row wrap>
-        <v-flex xs12 md6>
-          <v-btn outline block class="primary">1</v-btn>
-        </v-flex>
-        <v-flex xs4 md2>
-          <v-btn outline block class="primary">2</v-btn>
-        </v-flex>
-        <v-flex xs4 md2>
-          <v-btn outline block class="primary">2</v-btn>
-        </v-flex>
-        <v-flex xs4 md2>
-          <v-btn outline block class="primary">2</v-btn>
-        </v-flex>
-      </v-layout>
-
-      <v-layout row wrap justify-space-between>
-        <v-flex xs4 md3>
-          <v-btn outline block class="success">1</v-btn>
-        </v-flex>
-        <v-flex xs4 md3>
-          <v-btn outline block class="success">2</v-btn>
-        </v-flex>
-      </v-layout>
+      <v-card flat v-for="project in projects" :key="project.title">
+        <v-layout row wrap :class="`pa-3 project ${project.status}`">
+          <v-flex xs12 md6>
+            <div class="caption grey--text">Project Title</div>
+            <div>{{ project.title }}</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">Person</div>
+            <div>{{ project.person}}</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">Due by</div>
+            <div>{{ project.due}}</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">Status</div>
+            <div>{{ project.status}}</div>
+          </v-flex>
+        </v-layout>
+        <v-divider></v-divider>
+      </v-card>
     </v-container>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      projects: [
+        { title: 'Design a new website', person: 'The net ninja', due: '1st Jan 2019', status: 'ongoing' },
+        { title: 'Programming vue', person: 'Philip', due: '1st March 2019', status: 'overdue' },
+        { title: 'Programming mysql', person: 'Philip', due: '1st April 2019', status: 'complete' },
+        { title: 'Nuxt Tutorial', person: 'AcademyId', due: '1st May 2019', status: 'ongoing' },
+      ]
+    }
+  }
+}
+</script>
+
+<style>
+  .project.complete {
+    border-left: 4px solid #3cd1c2;
+  }
+  .project.ongoing {
+    border-left: 4px solid orange;
+  }
+  .project.overdue {
+    border-left: 4px solid tomato;
+  }
+</style>
