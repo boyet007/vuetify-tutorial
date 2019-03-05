@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600">
+    <v-dialog max-width="600" v-model="dialog">
         <v-btn flat slot="activator" class="success">Add new project</v-btn>
         <v-card>
             <v-card-title>
@@ -16,7 +16,7 @@
                     </v-menu>
                     <v-spacer></v-spacer>
 
-                    <v-btn flat class="success mx-0" @click="submit">Add project</v-btn>
+                    <v-btn flat class="success mx-0" :loading="loading" @click="submit">Add project</v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -35,12 +35,16 @@ export default {
             due: null,
             inputRules: [
                 v => v.length >= 3 || 'Minimum length is 3 characters'
-            ]
+            ],
+            loading: false,
+            dialog: false
         }
     },
     methods: {
         submit() {
             if(this.$refs.form.validate()) {
+                this.loading = true
+
                 const project = {
                     title: this.title,
                     content: this.content,
@@ -50,7 +54,8 @@ export default {
                 } 
 
                 db.collection('projects').add(project).then(() => {
-                    console.log('added to db')
+                    this.loading=false
+                    this.dialog=false
                 })
             } 
         }
