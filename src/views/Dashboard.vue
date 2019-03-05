@@ -47,21 +47,31 @@
 </template>
 
 <script>
+import db from '@/fb'
 export default {
   data() {
     return {
-      projects: [
-        { title: 'Design a new website', person: 'The net ninja', due: '1st Jan 2019', status: 'ongoing' },
-        { title: 'Programming vue', person: 'Philip', due: '1st March 2019', status: 'overdue' },
-        { title: 'Programming mysql', person: 'Martin', due: '1st April 2019', status: 'complete' },
-        { title: 'Nuxt Tutorial', person: 'AcademyId', due: '1st May 2019', status: 'ongoing' },
-      ]
+      projects: []
     }
   },
   methods: {
     sortBy(prop) {
       this.projects.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
     }
+  },
+  created() {
+    db.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges()
+
+      changes.forEach(change => {
+        if (change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          })
+        }
+      })
+    })
   }
 }
 </script>
