@@ -14,9 +14,8 @@
                         <v-text-field :rules="inputRules" :value="formattedDate" slot="activator" label="Due Date" prepend-icon="date_range"></v-text-field>
                         <v-date-picker  v-model="due"></v-date-picker>
                     </v-menu>
-
                     <v-spacer></v-spacer>
-                    
+
                     <v-btn flat class="success mx-0" @click="submit">Add project</v-btn>
                 </v-form>
             </v-card-text>
@@ -26,6 +25,8 @@
 
 <script>
 import format from 'date-fns/format'
+import db from '@/fb'
+
 export default {    
     data() {
         return {
@@ -40,7 +41,17 @@ export default {
     methods: {
         submit() {
             if(this.$refs.form.validate()) {
-                console.log(this.title, this.content)
+                const project = {
+                    title: this.title,
+                    content: this.content,
+                    due: format(this.due, 'Do MMM YYYY'),
+                    person: 'The Net Ninja',
+                    status: 'ongoing'
+                } 
+
+                db.collection('projects').add(project).then(() => {
+                    console.log('added to db')
+                })
             } 
         }
     },
